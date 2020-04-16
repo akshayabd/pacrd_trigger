@@ -3,7 +3,7 @@ kind: Pipeline
 metadata:
   name: pipeline1
 spec:
-  description: Delivery pipeline for the MyApplicationName service.
+  description: Delivery pipeline for the MyApplicationName service
   application: spin
   stages:
     # Note: In `v0.1.x` you are required to specify _both_ `type: BakeManifest`
