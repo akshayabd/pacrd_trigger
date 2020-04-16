@@ -1,0 +1,26 @@
+apiVersion: pacrd.armory.spinnaker.io/v1alpha1
+kind: Pipeline
+metadata:
+  name: pipeline2
+spec:
+  description: Delivery pipeline for the MyApplicationName service!!!!
+  application: spin
+  stages:
+    # Note: In `v0.1.x` you are required to specify _both_ `type: BakeManifest`
+    #       as well as place options under a `bakeManifest` key. Consult the
+    #       "Known Limitations" section below for more information.
+    - type: BakeManifest
+      name: Bake Application
+      refId: "1"
+      bakeManifest:
+        evaluateOverrideExpressions: false
+        outputName: spin
+        templateRenderer: helm2
+    - type: ManualJudgment
+      name: Bake Successful?
+      refId: "2"
+      requisiteStageRefIds: [ "1" ]
+      manualJudgment:
+        comments: Was the bake successful?
+        failPipeline: true
+        instructions: Check to see if the helm template was baked correctly
